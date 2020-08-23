@@ -1,0 +1,36 @@
+.Login {
+    margin: 140px auto;
+    padding: 30px;
+}
+
+.Login h2 {
+    font-weight: 900;
+    font-style: italic;
+    font-size: 24px;
+    
+}
+
+.Login input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.Login label {
+    font-weight: bold;
+    display: block;
+}
+
+@media(min-width: 500px) {
+    .Login {
+        width: 400px;
+        margin: 140px auto;
+    }
+
+    .Login h2 {
+        font-size: 34px;
+    }
+}

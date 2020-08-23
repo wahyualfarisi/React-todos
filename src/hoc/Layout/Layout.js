@@ -1,6 +1,7 @@
 import React , {Component } from 'react';
 import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
 import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer';
+import classes from './Layout.module.css';
 
 class Layout extends Component {
     state = {
@@ -28,7 +29,7 @@ class Layout extends Component {
                 <SideDrawer 
                     open={this.state.isShowSideDrawer}
                     closed={this.sideDrawerCloseHandler} />
-                <main>
+                <main className={classes.Content}>
                     {this.props.children}
                 </main>
             </React.Fragment>
