@@ -9,19 +9,26 @@ class App extends Component {
 
   state = {
     currentUser: undefined,
+    isLogin: false,
     loading: true 
   }
 
   componentDidMount(){
+    
     const user = AuthService.getCurrentUser()
    
     if(user){
       this.setState({
         currentUser: user,
+        isLogin: true,
         loading: false
       }); 
     }
+    
+  }
 
+  componentDidUpdate(){
+    console.log('cdupdated')
   }
 
   render() {
@@ -30,8 +37,14 @@ class App extends Component {
       <BrowserRouter>
           <Layout>
             <Switch>
-                <Route path="/" exact component={this.state.currentUser ? Todo : Login} />
-                <Route path="/todo" component={Todo} />
+                <Route path="/" exact component={this.state.isLogin ? Todo : Login} />
+                <Route path="/login"  component={() => {
+                  if(!this.state.isLogin) {
+                    return ( <Login /> )
+                  }else{
+                    return ( <Todo /> )
+                  }
+                }} />
             </Switch>
           </Layout>
       </BrowserRouter>
