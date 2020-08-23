@@ -18,7 +18,7 @@ const SideDrawer = (props) => {
             <div className={sideDrawerClasses.join(' ')}>
                 <Logo />
                 <nav style={{ marginTop: '20px' }}>
-                    <NavigationItems />
+                    <NavigationItems/>
                 </nav>
             </div>
         </React.Fragment>

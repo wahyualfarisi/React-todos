@@ -13,20 +13,19 @@ class App extends Component {
   }
 
   componentDidMount(){
-   const user = AuthService.getCurrentUser()
+    const user = AuthService.getCurrentUser()
    
     if(user){
       this.setState({
-        currentUser: user
-      });
-      
+        currentUser: user,
+        loading: false
+      }); 
     }
 
   }
 
   render() {
-    
-
+   
     return (
       <BrowserRouter>
           <Layout>

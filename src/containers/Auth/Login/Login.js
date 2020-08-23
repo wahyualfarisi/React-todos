@@ -3,6 +3,7 @@ import classes from './Login.module.css';
 import Button from '../../../components/UI/Button/Button';
 import Input from '../../../components/UI/Input/Input';
 import AuthService from './../../../services/auth_service';
+import Spinner from './../../../components/UI/Spinner/Spinner'
 
 class Login extends Component {
 
@@ -85,6 +86,7 @@ class Login extends Component {
 
     onSubmitHandler = ( event ) => {
         event.preventDefault();
+        this.setState({ loading: true })
         const formData = {};
 
         for(let valueInput in this.state.form_data){
@@ -96,7 +98,8 @@ class Login extends Component {
                       if(res.status){
                         this.props.history.push('/todo')
                       }else{
-                          alert(res.message)
+                          
+                          this.setState({ loading: false })
                       }
                    })
         
@@ -113,29 +116,41 @@ class Login extends Component {
             })
         }
 
+        let form = (
+            <form onSubmit={this.onSubmitHandler}>
+                    {
+                        formElementArr.map(item => (
+                            <Input 
+                                key={item.id}
+                                label={item.config.label}
+                                elementType={item.config.elementType}
+                                elementConfig={item.config.elementConfig}
+                                value={item.config.value}
+                                invalid={!item.config.valid}
+                                shouldValidate={item.config.validation}
+                                touched={item.config.touched}
+                                changed={(event) => this.onChangeHandler(event, item.id) }
+                            />
+                        ))
+                    }
+                    <div style={{ textAlign: 'right' }}>
+                       { 
+                           this.state.loading ? (
+                               <div> <Spinner /> </div>
+                           ) : (
+                            <Button disabled={!this.state.formIsValid} btnType="Primary" >SUBMIT</Button>
+                           )
+                        } 
+                    </div>
+            </form>
+        );
+
+      
+
         return (
             <div className={classes.Login}>
-                <h2>Please Log in</h2>
-                <form onSubmit={this.onSubmitHandler}>
-                        {
-                            formElementArr.map(item => (
-                                <Input 
-                                    key={item.id}
-                                    label={item.config.label}
-                                    elementType={item.config.elementType}
-                                    elementConfig={item.config.elementConfig}
-                                    value={item.config.value}
-                                    invalid={!item.config.valid}
-                                    shouldValidate={item.config.validation}
-                                    touched={item.config.touched}
-                                    changed={(event) => this.onChangeHandler(event, item.id) }
-                                />
-                            ))
-                        }
-                        <div style={{ textAlign: 'right' }}>
-                            <Button disabled={!this.state.formIsValid} btnType="Primary" >SUBMIT</Button>
-                        </div>
-                </form>
+                <h2>Log in</h2>
+                {form}
             </div>
         )
     }

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import AuthHeader from './auth-header';
 
 
 const API_URL = "http://localhost:8000/api";
@@ -11,7 +12,6 @@ class AuthService {
                    password
                })
                .then(res => {
-                   console.log(res)
                    if(res.data.status){
                        localStorage.setItem('user', JSON.stringify(res.data));
                        return res.data;
@@ -29,6 +29,22 @@ class AuthService {
 
     getCurrentUser() {
         return JSON.parse(localStorage.getItem('user'))
+    }
+
+    logout(){
+        return axios
+                .post(`${API_URL}`, { headers: AuthHeader() })
+                .then(res => {
+                    if(res.data.status){
+                        console.log(res);
+                    }
+                })
+                .catch(err => {
+                    return  {
+                        message: 'Failed logout',
+                        status: false
+                    }
+                })
     }
 
 }

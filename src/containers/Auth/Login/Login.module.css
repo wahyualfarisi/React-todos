@@ -1,5 +1,5 @@
 .Login {
-    margin: 140px auto;
+    margin: 110px auto;
     padding: 30px;
 }
 
@@ -7,13 +7,12 @@
     font-weight: 900;
     font-style: italic;
     font-size: 24px;
-    
 }
 
 @media(min-width: 500px) {
     .Login {
         width: 400px;
-        margin: 140px auto;
+        margin: 100px auto;
     }
 
     .Login h2 {
