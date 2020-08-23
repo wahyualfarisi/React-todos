@@ -3,7 +3,8 @@ import classes from './Login.module.css';
 import Button from '../../../components/UI/Button/Button';
 import Input from '../../../components/UI/Input/Input';
 import AuthService from './../../../services/auth_service';
-import Spinner from './../../../components/UI/Spinner/Spinner'
+import Spinner from './../../../components/UI/Spinner/Spinner';
+import { withRouter } from 'react-router-dom'
 
 class Login extends Component {
 
@@ -96,6 +97,7 @@ class Login extends Component {
         AuthService.login(formData.email, formData.password)
                    .then( (res) => {
                       if(res.status){
+                        this.props.history.push('/')
                         window.location.reload()
                       }else{
                           
@@ -156,4 +158,4 @@ class Login extends Component {
     }
 }
 
-export default Login;
+export default withRouter(Login) ;

@@ -3,7 +3,6 @@ import classes from './NavigationItems.module.css';
 import NavigationItem from './NavigationItem/NavigationItem';
 import AuthService from './../../../services/auth_service';
 import Spinner from './../../UI/Spinner/Spinner'
-import Button from '../../UI/Button/Button';
 
 class NavigationItems extends Component {
    
@@ -38,7 +37,7 @@ class NavigationItems extends Component {
             if(this.state.currentUser){
                 navigations = (
                     <ul className={classes.NavigationItems}>
-                        <NavigationItem link="/todo"> Todo </NavigationItem>
+                        <NavigationItem link="/"> Todo </NavigationItem>
                         <NavigationItem link="/profile"> Profile </NavigationItem>
                         <NavigationItem link="/logout"> Logout </NavigationItem>
                     </ul>
@@ -46,7 +45,7 @@ class NavigationItems extends Component {
             }else{
                 navigations = (
                     <ul className={classes.NavigationItems}>
-                        <NavigationItem link="/login"> Login </NavigationItem>
+                        <NavigationItem link="/"> Login </NavigationItem>
                         <NavigationItem link="/register"> Register </NavigationItem>
                     </ul>
                 )

@@ -1,9 +1,10 @@
 import React,  { Component } from 'react';
 import Layout from './hoc/Layout/Layout';
-import { BrowserRouter, Switch, Route  } from 'react-router-dom'
+import { Switch, Route  } from 'react-router-dom'
 import Login from './containers/Auth/Login/Login';
 import AuthService from './services/auth_service';
 import Todo from './containers/Todo/Todo';
+import Profile from './containers/Profile/Profile';
 
 class App extends Component {
 
@@ -34,20 +35,14 @@ class App extends Component {
   render() {
    
     return (
-      <BrowserRouter>
+      <div>
           <Layout>
             <Switch>
                 <Route path="/" exact component={this.state.isLogin ? Todo : Login} />
-                <Route path="/login"  component={() => {
-                  if(!this.state.isLogin) {
-                    return ( <Login /> )
-                  }else{
-                    return ( <Todo /> )
-                  }
-                }} />
+                <Route path="/profile" component={Profile} />
             </Switch>
           </Layout>
-      </BrowserRouter>
+      </div>
     );
 
   }
