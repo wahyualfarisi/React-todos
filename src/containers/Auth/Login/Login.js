@@ -95,16 +95,14 @@ class Login extends Component {
         }
 
         AuthService.login(formData.email, formData.password)
-                   .then( (res) => {
-                      if(res.status){
-                        this.props.history.push('/')
-                        window.location.reload()
-                      }else{
-                          
-                          this.setState({ loading: false })
-                      }
-                   })
-        
+            .then( (res) => {
+                if(res.status){
+                this.props.history.push('/')
+                window.location.reload()
+                }else{
+                    this.setState({ loading: false })
+                }
+        }) 
     }
 
 

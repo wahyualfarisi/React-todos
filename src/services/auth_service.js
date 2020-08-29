@@ -28,18 +28,24 @@ class AuthService {
     }
 
     getCurrentUser() {
-        return JSON.parse(localStorage.getItem('user'))
+        return JSON.parse( localStorage.getItem('user') )
     }
 
     logout(){
         return axios
-                .post(`${API_URL}`, { headers: AuthHeader() })
+                .post(`${API_URL}/logout`, {}, { headers: AuthHeader() })
                 .then(res => {
+                    
                     if(res.data.status){
-                        console.log(res);
+                        localStorage.removeItem('user');
+
+                        return res.data;
+                    }else{
+                        return undefined;
                     }
                 })
                 .catch(err => {
+                    
                     return  {
                         message: 'Failed logout',
                         status: false

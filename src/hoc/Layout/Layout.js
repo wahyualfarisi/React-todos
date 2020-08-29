@@ -8,7 +8,6 @@ class Layout extends Component {
         isShowSideDrawer: false
     }
 
-
     sideDrawerCloseHandler = () => {
         this.setState({ isShowSideDrawer: false })
     }
@@ -26,6 +25,7 @@ class Layout extends Component {
         return(
             <React.Fragment>
                 <Toolbar 
+                    isLogin={this.props.isLogin}
                     toggleHandler={this.sideDrawerToggleHandler} 
                     isShowSideDrawer={this.state.isShowSideDrawer} />
                 <SideDrawer 

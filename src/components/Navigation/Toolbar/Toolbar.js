@@ -5,12 +5,13 @@ import Logo from '../../Logo/Logo';
 import DrawerToggle from '../SideDrawer/DrawerToggle/DrawerToggle';
 
 const Toolbar = (props) => {
+   
     return (
         <header className={classes.Toolbar}>
             <DrawerToggle clicked={props.toggleHandler} />
             {!props.isShowSideDrawer ? <Logo /> : null } 
             <nav className={classes.DesktopOnly}>
-                <NavigationItems />
+               <NavigationItems isLogin={props.isLogin} />
             </nav>
         </header>
     )
