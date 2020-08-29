@@ -29,6 +29,7 @@ class Layout extends Component {
                     toggleHandler={this.sideDrawerToggleHandler} 
                     isShowSideDrawer={this.state.isShowSideDrawer} />
                 <SideDrawer 
+                    isLogin={this.props.isLogin}
                     open={this.state.isShowSideDrawer}
                     closed={this.sideDrawerCloseHandler} />
                 <main className={classes.Content}>

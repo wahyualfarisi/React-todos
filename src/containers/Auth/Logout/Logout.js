@@ -4,6 +4,8 @@ import AuthService from './../../../services/auth_service';
 import { withRouter  } from 'react-router-dom'
 import Login from '../Login/Login';
 import Spinner from '../../../components/UI/Spinner/Spinner';
+import { connect } from 'react-redux';
+import * as actiontypes from './../../../store/actions';
 
 class Logout extends Component {
     state = {
@@ -20,35 +22,37 @@ class Logout extends Component {
                             this.setState({
                                 loading: false
                             });
-                            
+                            this.props.logout();
                         }, 1000)
-                        
                     }else{
                         this.setState({
                             loading: false
                         });
+                        this.props.logout();
                     }
             })
             .catch(err => {
-                console.log(err, 'ss')
                     this.setState({
                         loading: false
                 });
+                this.props.logout();
             });
        }else{
         this.setState({
             loading: false
         });
+        this.props.logout();
        }
-
-       
     }
 
     render(){
+        
         let logout = (
             <div>
-                <h4>Success logout</h4>
                 <Login />
+                <h4 style={{
+                    textAlign: 'center'
+                }}>You've successfully logged out of Udemy. Come back soon! </h4>
             </div>
         );
 
@@ -61,8 +65,20 @@ class Logout extends Component {
         }
 
 
-        return  logout;
+        return logout;
     }
 }
 
-export default withRouter(Logout) ;
+const mapStateToProps = state => {
+    return {
+        auth: state.auth
+    }
+}
+
+const dispatchStateToPropd = dispatch => {
+    return {
+        logout: () => dispatch({ type:actiontypes.LOGOUT})
+    }
+}
+
+export default connect(mapStateToProps, dispatchStateToPropd)(withRouter(Logout))  ;
