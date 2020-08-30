@@ -1,21 +1,21 @@
-.Login {
-    margin: 110px auto;
+.Register {
+    margin: 60px auto;
     padding: 30px;
 }
 
-.Login h2 {
+.Register h2 {
     font-weight: 900;
     font-style: italic;
     font-size: 24px;
 }
 
-@media(min-width: 500px) {
-    .Login {
+@media(min-width: 500px){
+    .Register{
         width: 500px;
         margin: 70px auto;
     }
 
-    .Login h2 {
+    .Register h2 {
         font-size: 34px;
     }
 }

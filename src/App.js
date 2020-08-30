@@ -7,6 +7,7 @@ import Todo from './containers/Todo/Todo';
 import Profile from './containers/Profile/Profile';
 import * as actionTypes from './store/actions';
 import Logout from './containers/Auth/Logout/Logout';
+import Register from './containers/Auth/Register/Register';
 
 class App extends Component {
 
@@ -20,8 +21,10 @@ class App extends Component {
           <Layout isLogin={this.props.auth.isLogin}>
             <Switch>
                 <Route path="/" exact component={this.props.auth.isLogin ? Todo : Login} />
+                <Route path="/register" component={Register} />
                 <Route path="/profile" component={Profile} />
                 <Route path="/logout" component={Logout} />
+                <Route render={() => <h1> Page Not Found </h1>} />
             </Switch>
           </Layout>
       </div>

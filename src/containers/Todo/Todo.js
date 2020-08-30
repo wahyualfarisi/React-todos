@@ -25,6 +25,7 @@ class Todo extends Component {
         return (
             <div className={classes.Todo}>
                 {todo}
+
             </div>
         )
     }

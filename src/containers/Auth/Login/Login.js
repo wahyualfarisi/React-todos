@@ -5,6 +5,7 @@ import Input from '../../../components/UI/Input/Input';
 import AuthService from './../../../services/auth_service';
 import Spinner from './../../../components/UI/Spinner/Spinner';
 import { withRouter } from 'react-router-dom'
+import ErrorMessage from '../../../components/UI/ErrorMessage/ErrorMessage';
 
 class Login extends Component {
 
@@ -42,7 +43,8 @@ class Login extends Component {
             }           
         },
         formIsValid: false,
-        loading: false
+        loading: false,
+        errorMessage: ''
     }
 
     onCheckValidity = (value, rules) => {
@@ -87,7 +89,7 @@ class Login extends Component {
 
     onSubmitHandler = ( event ) => {
         event.preventDefault();
-        this.setState({ loading: true })
+        this.setState({ loading: true, errorMessage: '' })
         const formData = {};
 
         for(let valueInput in this.state.form_data){
@@ -105,13 +107,16 @@ class Login extends Component {
                     
                 }else{
                     this.setState({ loading: false })
+                    this.setState({
+                        errorMessage: 'There is no user record corresponding to this identifier. The user may have been deleted'
+                    })
                 }
         }) 
     }
 
 
     render() {
-        let formElementArr = [];
+        let formElementArr = [], errorMessage = null;
 
         for(let key in this.state.form_data){
             formElementArr.push({
@@ -149,12 +154,16 @@ class Login extends Component {
             </form>
         );
 
+        if(this.state.errorMessage.trim() !== "") {
+            errorMessage = <ErrorMessage messageType="error"> {this.state.errorMessage} </ErrorMessage>
+        }
       
 
         return (
             <div className={classes.Login}>
                 <h2>Log in</h2>
                 {form}
+                {errorMessage}
             </div>
         )
     }

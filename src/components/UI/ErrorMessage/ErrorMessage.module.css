@@ -1,0 +1,20 @@
+.Messaage {
+    margin: auto;
+    padding: 10px;
+    text-align: center;
+}
+
+.Error {
+    color: red;
+}
+
+.Success {
+    color: green;
+}
+
+@media(min-width: 500px){
+    .Messaage {
+        display: block;
+        text-align: center;
+    }
+}

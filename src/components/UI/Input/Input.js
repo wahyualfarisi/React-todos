@@ -2,7 +2,7 @@ import React from 'react';
 import classes from './Input.module.css';
 
 const Input = ( props ) => {
-    let inputElement = null;
+    let inputElement = null, error_message = null;
     
     let inputClasses = [classes.InputElement];
 
@@ -34,6 +34,10 @@ const Input = ( props ) => {
         <div className={classes.Input}>
             <label className={classes.Label}>{props.label}</label>
             {inputElement}
+            <div style={{textAlign: 'right'}}>
+                <span style={{color: 'red'}} >{error_message}</span>
+            </div>
+            
         </div>
     )
 }

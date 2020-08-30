@@ -16,11 +16,11 @@ const store = createStore( rootReducer )
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter basename="/">
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter basename="/">
+          <App />
+          </BrowserRouter>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -6,6 +6,7 @@ import Login from '../Login/Login';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import { connect } from 'react-redux';
 import * as actiontypes from './../../../store/actions';
+import ErrorMessage from '../../../components/UI/ErrorMessage/ErrorMessage';
 
 class Logout extends Component {
     state = {
@@ -50,9 +51,7 @@ class Logout extends Component {
         let logout = (
             <div>
                 <Login />
-                <h4 style={{
-                    textAlign: 'center'
-                }}>You've successfully logged out of Udemy. Come back soon! </h4>
+                <ErrorMessage messageType="success">You've successfully logged out of Todo's App. Come back soon! </ErrorMessage>
             </div>
         );
 

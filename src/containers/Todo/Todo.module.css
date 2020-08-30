@@ -1,4 +1,11 @@
 .Todo {
-    margin: 30px auto;
-    width: 800px;
+    margin: auto;
+    padding: 5px;
+}
+
+@media(min-width: 500px){
+    .Todo {
+        width: 800px;
+        margin: auto;
+    }
 }
