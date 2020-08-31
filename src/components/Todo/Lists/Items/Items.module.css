@@ -1,0 +1,16 @@
+.Checked {
+    text-decoration: line-through;
+}
+
+.Checked::before {
+    content: '';
+    position: absolute;
+    border-color: #ccc;
+    border-style: solid;
+    border-width: 0 2px 2px 0;
+    top: 10px;
+    left: 16px;
+    transform: rotate(45deg);
+    height: 15px;
+    width: 7px;
+}

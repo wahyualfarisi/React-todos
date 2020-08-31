@@ -1,0 +1,53 @@
+.Controls {
+    color: #0b0438;
+    margin-bottom: 10px;
+}
+
+.Controls h2 {
+    float: left;
+    font-size: 36px;
+}
+
+.Controls h5 {
+    float: right;
+    font-size: 16px;
+    background-color: #0b0438;
+    padding: 12.5px;
+    color: #ccc;
+    transform: rotate(-6deg);
+    display: inline-block;
+}
+
+.Controls input {
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    width: 75%;
+    padding: 15px;
+    float: left;
+    font-size: 16px;
+    font: inherit;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.Controls input:focus {
+    outline: none;
+    border: 1px solid #0b0438;
+}
+
+.Controls button {
+    outline: none;
+    padding: 15px;
+    width: 25%;
+    background: #3f4858;
+    color: white;
+    float: left;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    transform: 0.3s;
+    border-radius: 0;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
