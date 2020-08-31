@@ -3,6 +3,7 @@ import classes from './Register.module.css';
 import Input from '../../../components/UI/Input/Input';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import Button from '../../../components/UI/Button/Button';
+import AuthService from './../../../services/auth_service';
 import ErrorMessage from '../../../components/UI/ErrorMessage/ErrorMessage';
 
 class Register extends Component {
@@ -79,7 +80,11 @@ class Register extends Component {
             }
         },
         loading: false,
-        formIsValid: false
+        formIsValid: false,
+        message: {
+            type: '',
+            value: ''
+        }
     }
 
     onCheckValidity = (value, validation) => {
@@ -125,8 +130,34 @@ class Register extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
+        let form_data = {}
+        this.setState({ message: '' })
+        for(let valueInput in this.state.form_data){
+            form_data[valueInput] = this.state.form_data[valueInput].value
+        }
 
-
+        AuthService.register(form_data)
+                    .then(res => {
+                        
+                        if(res.data.status){
+                            this.setState({
+                                message: {
+                                    type: 'success',
+                                    value: 'Register success'
+                                }
+                            })
+                        }else{
+                            this.setState({
+                                message: {
+                                    type: 'error',
+                                    value: res.data.message
+                                }
+                            })
+                        }
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
 
     }
 
@@ -174,6 +205,7 @@ class Register extends Component {
             <div className={classes.Register}>
                 <h2>Register</h2>
                 {form}
+                { this.state.message ? <ErrorMessage messageType={this.state.message.type}> {this.state.message.value} </ErrorMessage> : null }
             </div>
         )
     }

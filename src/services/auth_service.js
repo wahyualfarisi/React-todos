@@ -27,6 +27,21 @@ class AuthService {
                })
     }
 
+    register({ full_name, email, password }) {
+        return axios
+                .post(`${API_URL}/register`, {
+                    full_name,
+                    email,
+                    password
+                })
+                .then(res => {
+                    return res
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+    }
+
     getCurrentUser() {
         return JSON.parse( localStorage.getItem('user') )
     }
