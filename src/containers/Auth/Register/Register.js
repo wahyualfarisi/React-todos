@@ -130,8 +130,8 @@ class Register extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        let form_data = {}
-        this.setState({ message: '' })
+        let form_data = {};
+        this.setState({ message: '' });
         for(let valueInput in this.state.form_data){
             form_data[valueInput] = this.state.form_data[valueInput].value
         }
