@@ -59,7 +59,7 @@ class Register extends Component {
                 },
                 valid: false,
                 touched: false,
-                isShowPasswod: true
+                isShowPassword: true
             },
             confirm_password: {
                 elementType: 'input',
@@ -78,7 +78,7 @@ class Register extends Component {
                 },
                 valid: false,
                 touched: false,
-                isShowPasswod: true
+                isShowPassword: true
             }
         },
         loading: false,
@@ -178,17 +178,14 @@ class Register extends Component {
         let updatedFormData = {
             ...this.state.form_data,
         }
-
-        let updatedType;
-        event.target.checked ? updatedType = 'text' : updatedType = 'password'
        
         for(let inputName in updatedFormData){
-           if(updatedFormData[inputName].isShowPasswod){
+           if(updatedFormData[inputName].isShowPassword){
                updatedFormData[inputName] = {
                    ...updatedFormData[inputName],
                    elementConfig: {
                        ...updatedFormData[inputName].elementConfig,
-                       type: updatedType
+                       type: event.target.checked ? 'text' : 'password'
                    }
                }
            }else{
@@ -198,8 +195,6 @@ class Register extends Component {
            }
         }
 
-        
-        
          this.setState({
             form_data: updatedFormData,
             isChecked: event.target.checked
