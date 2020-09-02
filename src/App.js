@@ -5,7 +5,7 @@ import { Switch, Route  } from 'react-router-dom'
 import Login from './containers/Auth/Login/Login';
 import Todo from './containers/Todo/Todo';
 import Profile from './containers/Profile/Profile';
-import * as actionTypes from './store/actions';
+import * as actionTypes from './store/actions/types';
 import Logout from './containers/Auth/Logout/Logout';
 import Register from './containers/Auth/Register/Register';
 

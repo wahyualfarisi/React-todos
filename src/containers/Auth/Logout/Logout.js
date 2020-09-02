@@ -5,7 +5,7 @@ import { withRouter  } from 'react-router-dom'
 import Login from '../Login/Login';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import { connect } from 'react-redux';
-import * as actiontypes from './../../../store/actions';
+import * as actiontypes from './../../../store/actions/types';
 import ErrorMessage from '../../../components/UI/ErrorMessage/ErrorMessage';
 
 class Logout extends Component {

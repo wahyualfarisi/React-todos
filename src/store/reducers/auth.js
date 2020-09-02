@@ -1,4 +1,4 @@
-import * as actionTypes from './../actions';
+import * as actionTypes from './../actions/types';
 import AuthService from './../../services/auth_service';
 
 const initialState = {

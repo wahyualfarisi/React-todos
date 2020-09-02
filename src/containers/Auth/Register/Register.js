@@ -58,7 +58,8 @@ class Register extends Component {
                     maxLength: 5
                 },
                 valid: false,
-                touched: false 
+                touched: false,
+                isShowPasswod: true
             },
             confirm_password: {
                 elementType: 'input',
@@ -76,11 +77,13 @@ class Register extends Component {
                     maxLength: 5
                 },
                 valid: false,
-                touched: false 
+                touched: false,
+                isShowPasswod: true
             }
         },
         loading: false,
         formIsValid: false,
+        isChecked: false,
         message: {
             type: '',
             value: ''
@@ -132,8 +135,19 @@ class Register extends Component {
         e.preventDefault();
         let form_data = {};
         this.setState({ message: '' });
+
         for(let valueInput in this.state.form_data){
             form_data[valueInput] = this.state.form_data[valueInput].value
+        }
+
+        if(form_data.password !== form_data.confirm_password){
+            this.setState({
+                message: {
+                    type: 'error',
+                    value: 'Your password and confirmation password do not match.'
+                }
+            });
+            return;
         }
 
         AuthService.register(form_data)
@@ -158,8 +172,42 @@ class Register extends Component {
                     .catch(err => {
                         console.log(err)
                     })
+    }
+
+    showPasswordHandler = (event) => {
+        let updatedFormData = {
+            ...this.state.form_data,
+        }
+
+        let updatedType;
+        event.target.checked ? updatedType = 'text' : updatedType = 'password'
+       
+        for(let inputName in updatedFormData){
+           if(updatedFormData[inputName].isShowPasswod){
+               updatedFormData[inputName] = {
+                   ...updatedFormData[inputName],
+                   elementConfig: {
+                       ...updatedFormData[inputName].elementConfig,
+                       type: updatedType
+                   }
+               }
+           }else{
+               updatedFormData[inputName] = {
+                   ...updatedFormData[inputName]
+               }
+           }
+        }
+
+        
+        
+         this.setState({
+            form_data: updatedFormData,
+            isChecked: event.target.checked
+        })
+
 
     }
+
 
     render(){
         let formElementArr = [];
@@ -188,6 +236,15 @@ class Register extends Component {
                         />
                     ))
                 }
+
+                <label>
+                <input 
+                    type="checkbox" 
+                    checked={this.state.isChecked} 
+                    onChange={this.showPasswordHandler} /> 
+                    Show Password
+                </label>
+
                 <div style={{ textAlign: 'right' }}>
                     {
                         this.state.loading ? (
@@ -197,6 +254,7 @@ class Register extends Component {
                         )
                     }
                 </div>
+                
             </form>
         )
 
