@@ -2,10 +2,11 @@ import React , { Component } from 'react';
 import classes from './Login.module.css';
 import Button from '../../../components/UI/Button/Button';
 import Input from '../../../components/UI/Input/Input';
-import AuthService from './../../../services/auth_service';
 import Spinner from './../../../components/UI/Spinner/Spinner';
 import { withRouter } from 'react-router-dom'
 import ErrorMessage from '../../../components/UI/ErrorMessage/ErrorMessage';
+import { connect } from 'react-redux';
+import * as actions from './../../../store/actions/index';
 
 class Login extends Component {
 
@@ -54,8 +55,6 @@ class Login extends Component {
             isValid = value.trim() !== '' && isValid
         }
 
-        
-
         return isValid;
     }
 
@@ -86,29 +85,13 @@ class Login extends Component {
 
     onSubmitHandler = ( event ) => {
         event.preventDefault();
-        this.setState({ loading: true, errorMessage: '' })
         const formData = {};
 
         for(let valueInput in this.state.form_data){
             formData[valueInput] = this.state.form_data[valueInput].value;
         }
 
-        AuthService.login(formData.email, formData.password)
-            .then( (res) => {
-                if(res.status){
-                    setTimeout(() => {
-                        this.props.history.push('/')
-                        window.location.reload()
-                        this.setState({ loading: false })
-                    }, 1000);
-                    
-                }else{
-                    this.setState({ loading: false })
-                    this.setState({
-                        errorMessage: 'There is no user record corresponding to this identifier. The user may have been deleted'
-                    })
-                }
-        }) 
+        this.props.onAuthentication(formData.email, formData.password); 
     }
 
 
@@ -141,7 +124,7 @@ class Login extends Component {
                     }
                     <div style={{ textAlign: 'right' }}>
                        { 
-                           this.state.loading ? (
+                           this.props.loading ? (
                                <div> <Spinner /> </div>
                            ) : (
                             <Button disabled={!this.state.formIsValid} btnType="Primary" >SUBMIT</Button>
@@ -151,10 +134,11 @@ class Login extends Component {
             </form>
         );
 
-        if(this.state.errorMessage.trim() !== "") {
-            errorMessage = <ErrorMessage messageType="error"> {this.state.errorMessage} </ErrorMessage>
+        if(this.props.error){
+            errorMessage = (
+                <ErrorMessage messageType="Error"> {this.props.error.message} </ErrorMessage>
+            )
         }
-      
 
         return (
             <div className={classes.Login}>
@@ -166,4 +150,17 @@ class Login extends Component {
     }
 }
 
-export default withRouter(Login) ;
+const mapStateToProps = state => {
+    return {
+        loading: state.auth.loading,
+        error: state.auth.error
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onAuthentication: (email, password) => dispatch( actions.auth(email, password) )
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)( withRouter(Login) )  ;

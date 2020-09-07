@@ -1,31 +1,45 @@
 import React,  { Component } from 'react';
 import { connect } from 'react-redux';
 import Layout from './hoc/Layout/Layout';
-import { Switch, Route  } from 'react-router-dom'
+import { Switch, Route, Redirect  } from 'react-router-dom'
 import Login from './containers/Auth/Login/Login';
 import Todo from './containers/Todo/Todo';
 import Profile from './containers/Profile/Profile';
-import * as actionTypes from './store/actions/types';
+import * as actions from './store/actions/index';
 import Logout from './containers/Auth/Logout/Logout';
 import Register from './containers/Auth/Register/Register';
 
 class App extends Component {
 
   componentDidMount(){
+    
     this.props.checkAuth()
   }
 
   render() {
+    let routes = (
+      <Switch>
+         <Route path="/" exact component={Login} />
+         <Route path="/register" component={Register} />
+         <Redirect to="/" />
+      </Switch>
+    );
+
+    if(this.props.auth.isLogin){
+     routes = (
+        <Switch>
+            <Route path="/" exact component={Todo} />
+            <Route path="/profile" component={Profile} />
+            <Route path="/logout" component={Logout} />
+            <Redirect to="/" />
+        </Switch>
+       );
+    };
+
     return (
       <div>
           <Layout isLogin={this.props.auth.isLogin}>
-            <Switch>
-                <Route path="/" exact component={this.props.auth.isLogin ? Todo : Login} />
-                <Route path="/register" component={Register} />
-                <Route path="/profile" component={Profile} />
-                <Route path="/logout" component={Logout} />
-                <Route render={() => <h1> Page Not Found </h1>} />
-            </Switch>
+            {routes}
           </Layout>
       </div>
     );
@@ -41,7 +55,7 @@ const mapStateToProps = state => {
 
 const dispatchStateToProps = dispatch => {
   return {
-    checkAuth: () => dispatch({ type: actionTypes.CHECK_AUTH } )
+    checkAuth: () => dispatch( actions.authCheckState() )
   }
 }
 
