@@ -4,7 +4,6 @@ import Layout from './hoc/Layout/Layout';
 import { Switch, Route, Redirect  } from 'react-router-dom'
 import Login from './containers/Auth/Login/Login';
 import Todo from './containers/Todo/Todo';
-import Profile from './containers/Profile/Profile';
 import * as actions from './store/actions/index';
 import Logout from './containers/Auth/Logout/Logout';
 import Register from './containers/Auth/Register/Register';
