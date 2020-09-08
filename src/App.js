@@ -29,7 +29,6 @@ class App extends Component {
      routes = (
         <Switch>
             <Route path="/" exact component={Todo} />
-            <Route path="/profile" component={Profile} />
             <Route path="/logout" component={Logout} />
             <Redirect to="/" />
         </Switch>
