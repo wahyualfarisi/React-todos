@@ -12,7 +12,6 @@ class NavigationItems extends Component {
             navigations = (
                 <ul className={classes.NavigationItems}>
                     <NavigationItem link="/"> Todo </NavigationItem>
-                    <NavigationItem link="/profile"> Profile </NavigationItem>
                     <NavigationItem link="/logout"> Logout </NavigationItem>
                 </ul>
             )
