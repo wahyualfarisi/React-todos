@@ -85,13 +85,7 @@ class Login extends Component {
 
     onSubmitHandler = ( event ) => {
         event.preventDefault();
-        const formData = {};
-
-        for(let valueInput in this.state.form_data){
-            formData[valueInput] = this.state.form_data[valueInput].value;
-        }
-
-        this.props.onAuthentication(formData.email, formData.password); 
+        this.props.onAuthentication(this.state.form_data.email.value, this.state.form_data.password.value); 
     }
 
 

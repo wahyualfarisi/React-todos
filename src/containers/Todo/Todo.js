@@ -1,87 +1,42 @@
 import React , { Component } from 'react';
 import classes from './Todo.module.css';
-import UserService from './../../services/user-service';
 import { connect } from 'react-redux'
 import Controls from '../../components/Todo/Controls/Controls';
 import Lists from '../../components/Todo/Lists/Lists';
+import * as actions from './../../store/actions/index';
+import Spinner from '../../components/UI/Spinner/Spinner';
+
 
 class Todo extends Component {
 
     state = {
-        todos: [
-            {
-                id: 1,
-                title: 'Create UI & UX',
-                checked: false
-            },
-            {
-                id: 2,
-                title: 'Design System Requirement',
-                checked: true
-            },
-            {
-                id: 3,
-                title: 'Create DATABASE',
-                checked: false
-            },
-            {
-                id: 4,
-                title: 'Analyz Folder Structure',
-                checked: false
-            }
-        ],
         value: ''
     }
 
     componentDidMount() {
-        if(this.props.auth.isLogin){
-            UserService.getTodos().then(res => {
-                console.log(res)
-            })
-            .catch(err => {
-                
-            });
-        }
+        this.props.onFetchTodo()
        
     }
 
     onChecklistHandler = (id) => {
-       //find element index
-       const elementIndex = this.state.todos.findIndex(el => el.id === id);
-       //create copy on array state
-       let newArray = [...this.state.todos];
-
-       //mutate todo with elementIndex
-       newArray[elementIndex] = {
-           ...newArray[elementIndex],
-           checked: !newArray[elementIndex].checked
-       };
-
-       //updated the state
-       this.setState({
-           todos: newArray
-       });
+        this.props.onCheckedToggle( id )
     }
 
     onDeleteHandler = ( id ) => {
-       const todos       = [...this.state.todos];
-       const newTodo     = todos.filter(todo => todo.id !== id);
-       this.setState({
-           todos: newTodo
-       });
+        this.props.onDeleteTodo(id);
     }
 
     onSaveTodoHandler = (event) => {
         event.preventDefault();
         let inputValue = this.state.value.trim();
-        let newTodo       = [...this.state.todos, { id: new Date().getTime(), title: inputValue, checked: false }]
-
+        
         if(inputValue !== "") {
+            this.props.onCreateTodo(inputValue)
             this.setState({
-                todos: newTodo,
                 value: ''
             })
         }
+
 
         return false;
     }
@@ -93,24 +48,43 @@ class Todo extends Component {
     }
 
     render(){
+        let listTodo = (
+            <Lists 
+                todos={this.props.todos} 
+                onChecklist={this.onChecklistHandler} 
+                onDeletedTodo={this.onDeleteHandler} />
+        );
+
+        if(this.props.loading){
+            listTodo = <Spinner />
+        }
+
         return (
             <div className={classes.Todo}>
                 <Controls 
                     submited={this.onSaveTodoHandler} 
                     inputValue={this.state.value}
                     changed={this.onChangeHandler} />
-                <Lists 
-                    todos={this.state.todos} 
-                    onChecklist={this.onChecklistHandler} 
-                    onDeletedTodo={this.onDeleteHandler} />
+                {listTodo}
             </div>
         )
     }
 }
 const mapStateToProps = state => {
     return {
-        auth: state.auth
+        auth: state.auth,
+        todos: state.todo.todos,
+        loading: state.todo.loading
     }
 }
 
-export default connect(mapStateToProps)(Todo) 
+const mapDispatchToProps = dispatch => {
+    return {
+        onFetchTodo: () => dispatch( actions.todo_fetch( ) ) ,
+        onDeleteTodo: ( id ) => dispatch( actions.todo_delete( id ) ),
+        onCreateTodo: (title) => dispatch( actions.todo_add(title) ),
+        onCheckedToggle: (id) => dispatch( actions.todo_checked(id))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Todo) 
