@@ -1,8 +1,5 @@
 import * as actionTypes from './types';
-import Axios from 'axios';
-import authHeader from './../../services/auth-header';
-
-const API_URL = "http://localhost:8000/api";
+import authService from './../../services/auth_service';
 
 export const authCheckState = () => {
     return {
@@ -55,24 +52,21 @@ export const logoutFail = (err) => {
 export const auth = (email, password) => {
     return dispatch => {
         dispatch(authStart());
-        Axios.post(`${API_URL}/login`, {
-                   email,
-                   password
-               })
-               .then(res => {
-                   localStorage.setItem('user', JSON.stringify(res.data));
-                   dispatch(authSuccess(res.data.results, res.data.token))
-               })
-               .catch(err => {
-                   dispatch(authFail(err))
-               })
+        authService.login(email, password)
+                   .then(res => {
+                        localStorage.setItem('user', JSON.stringify(res.data));
+                        dispatch(authSuccess(res.data.results, res.data.token))
+                   })
+                   .catch(err => {
+                        dispatch(authFail(err))
+                   })
     }
 }
 
 export const logout = () => {
     return dispatch => {
         dispatch(logoutStart());
-        Axios.post(`${API_URL}/logout`, {}, { headers: authHeader() })
+        authService.logout()
                 .then(res => {
                     dispatch(logoutSuccess(res.data))
                 })

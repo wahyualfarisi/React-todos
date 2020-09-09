@@ -1,13 +1,19 @@
-import axios from 'axios';
-
-
-const API_URL = "http://localhost:8000/api";
+import Axios from './axios-service';
+import authHeader from './auth-header';
 
 class AuthService {
+
+    login(email, password){
+        return Axios.post('/login', { email, password });
+    }
+
+    logout(){
+        return Axios.post(`/logout`, {}, { headers: authHeader() })
+    }
     
     register({ full_name, email, password }) {
-        return axios
-                .post(`${API_URL}/register`, {
+        return Axios
+                .post(`/register`, {
                     full_name,
                     email,
                     password
