@@ -59,7 +59,7 @@ class Todo extends Component {
                     onDeletedTodo={this.onDeleteHandler} />
             );
         }else {
-            listTodo = <Empty text="List Empty" />
+            listTodo = <Empty text="Today List Empty" />
         }
 
 
@@ -73,8 +73,9 @@ class Todo extends Component {
                     submited={this.onSaveTodoHandler} 
                     inputValue={this.state.value}
                     changed={this.onChangeHandler} />
-                {listTodo}
-                
+                <div style={{ background: '#ccc' }}>
+                     {listTodo}
+                </div>
             </div>
         )
     }

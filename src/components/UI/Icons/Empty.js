@@ -11,7 +11,7 @@ const Empty = (props) => {
             flexDirection: 'column'
         }}>
         <img src={Icon} width="150px" alt="empty image" />
-        <p>No list</p>
+        <p>{props.text}</p>
         </div>
     );
 };
