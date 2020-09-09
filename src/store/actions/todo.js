@@ -130,11 +130,9 @@ export const todo_checked = ( id ) => {
         dispatch( todo_checked_start() )
         userService.checkedToggle(id)
                    .then(res => {
-                        console.log(res)
                         dispatch( todo_checked_success(id) )
                    })
                    .catch(err => {
-                       console.log(err)
                        dispatch( todo_checked_fail(err) )
                    })
     }

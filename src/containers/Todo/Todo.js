@@ -5,6 +5,7 @@ import Controls from '../../components/Todo/Controls/Controls';
 import Lists from '../../components/Todo/Lists/Lists';
 import * as actions from './../../store/actions/index';
 import Spinner from '../../components/UI/Spinner/Spinner';
+import Empty from '../../components/UI/Icons/Empty';
 
 
 class Todo extends Component {
@@ -48,12 +49,19 @@ class Todo extends Component {
     }
 
     render(){
-        let listTodo = (
-            <Lists 
-                todos={this.props.todos} 
-                onChecklist={this.onChecklistHandler} 
-                onDeletedTodo={this.onDeleteHandler} />
-        );
+        let listTodo = null;
+
+        if(this.props.todos.length > 0) {
+            listTodo = (
+                <Lists 
+                    todos={this.props.todos} 
+                    onChecklist={this.onChecklistHandler} 
+                    onDeletedTodo={this.onDeleteHandler} />
+            );
+        }else {
+            listTodo = <Empty text="List Empty" />
+        }
+
 
         if(this.props.loading){
             listTodo = <Spinner />
@@ -66,6 +74,7 @@ class Todo extends Component {
                     inputValue={this.state.value}
                     changed={this.onChangeHandler} />
                 {listTodo}
+                
             </div>
         )
     }
