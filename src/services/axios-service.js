@@ -1,7 +1,7 @@
 import Axios from 'axios';
 
 const instance = Axios.create({
-    baseURL: 'http://localhost:8000/api'
+    baseURL: 'https://resource-api.alfarisilab.com/api'
 });
 
 export default instance;

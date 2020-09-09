@@ -11,7 +11,7 @@ class UserService {
     }
 
     newTodo(title){
-        return Axios.post('/todo/', {
+        return Axios.post('/todo', {
             title: title
         }, { headers: authHeader() })
     }
