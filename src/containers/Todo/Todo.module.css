@@ -7,7 +7,7 @@
 
 @media(min-width: 500px){
     .Todo {
-        width: 600px;
+        max-width: 600px;
         margin: auto;
     }
 }

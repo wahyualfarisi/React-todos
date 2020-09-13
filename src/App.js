@@ -1,4 +1,4 @@
-import React,  { useEffect, lazy, Suspense } from 'react';
+import React,  { useEffect, lazy, Suspense, useCallback } from 'react';
 import { connect } from 'react-redux';
 import Layout from './hoc/Layout/Layout';
 import { Switch, Route, Redirect  } from 'react-router-dom'
@@ -20,13 +20,16 @@ const AsyncRegister = lazy( () => {
 
 const App = props => {
 
+  const check = useCallback(() => {
+      props.checkAuth()
+  }, [props])
+
+  
+
   useEffect( () => {
 
-    const check = () => {
-      props.checkAuth()
-    }
-
     check()
+
   }, [])
 
   
