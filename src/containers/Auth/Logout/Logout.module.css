@@ -5,10 +5,9 @@
 
 @media(min-width: 500px){
     .Logout {
-        position: absolute;
-        top: 50%;
-        left: 45%;
-        transform: translateX(-50%, -50%);
-        
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
     }
 }
