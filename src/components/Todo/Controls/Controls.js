@@ -15,7 +15,7 @@ const Controls = (props) => {
             <p>Hallo, { JSON.parse(localStorage.getItem('user')).results.full_name }  </p>
             <form onSubmit={props.submited}>
                 <input type="text" placeholder="Enter List" value={props.inputValue} onChange={props.changed} />
-                <button type="submit">ADD</button>
+                <button type="submit"> ADD </button>
                 <div className="clearfix"></div>
             </form>
         </div>

@@ -29,3 +29,10 @@ body {
   opacity: 0;
   transition: opacity 500ms ease-out;
 }
+
+
+.loading-bottom {
+  position: absolute;
+  right: 10px;
+  bottom: 0;
+}

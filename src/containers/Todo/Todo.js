@@ -68,8 +68,7 @@ class Todo extends Component {
                     submited={this.onSaveTodoHandler} 
                     inputValue={this.state.value}
                     changed={this.onChangeHandler} />
-
-                <div style={{ background: '#ccc' }}>
+                <div>
                      {listTodo}
                 </div>
             </div>

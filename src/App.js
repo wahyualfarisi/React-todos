@@ -4,6 +4,7 @@ import Layout from './hoc/Layout/Layout';
 import { Switch, Route, Redirect  } from 'react-router-dom'
 import Login from './containers/Auth/Login/Login';
 import * as actions from './store/actions/index';
+import Spinner from './components/UI/Spinner/Spinner';
 
 const AsyncTodo = lazy( () => {
   return import('./containers/Todo/Todo');
@@ -37,7 +38,7 @@ const App = props => {
     <Switch>
         <Route path="/" exact component={Login} />
         <Route path="/register" render={() => (
-          <Suspense fallback={<div>...Loading</div>}> 
+          <Suspense fallback={<div className="loading-bottom"><Spinner /> </div>}> 
             <AsyncRegister /> 
           </Suspense> 
         )} />
@@ -49,12 +50,12 @@ const App = props => {
     routes = (
       <Switch>
           <Route path="/" exact render={() => (
-            <Suspense fallback={<div>...Loading</div>}> 
+            <Suspense fallback={<div className="loading-bottom"><Spinner /> </div>}> 
               <AsyncTodo /> 
             </Suspense>
           )} />
           <Route path="/logout" render={() => (
-            <Suspense fallback={<div>...Loading</div>}> 
+            <Suspense fallback={<div className="loading-bottom"><Spinner /> </div>}> 
               <AsyncLogout /> 
             </Suspense> 
           )} />
