@@ -23,13 +23,12 @@ const store = createStore( rootReducer, composeEnhancers(
 ) )
 
 ReactDOM.render(
-  <React.StrictMode>
     <Provider store={store}>
       <HashRouter basename="/">
           <App />
       </HashRouter>
     </Provider>
-  </React.StrictMode>,
+  ,
   document.getElementById('root')
 );
 

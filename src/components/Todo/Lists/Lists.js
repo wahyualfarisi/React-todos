@@ -1,22 +1,29 @@
 import React from 'react';
 import classes from './Lists.module.css';
 import Items from './Items/Items';
+import CSSTransition from 'react-transition-group/CSSTransition';
+import TransitionGroup from 'react-transition-group/TransitionGroup';
 
 const Lists = (props) => {
 
     return (
-        <ul className={classes.Lists}>
+        <TransitionGroup component="ul" className={classes.Lists}>
             {
                 props.todos.length > 0 ? props.todos.map(todo => (
-                    <Items 
+                    <CSSTransition 
                         key={todo.id}
-                        title={todo.title} 
-                        checked={todo.checked} 
-                        clicked={() => props.onChecklist(todo.id)} 
-                        deleted={() => props.onDeletedTodo(todo.id)} />
+                        classNames="fade"
+                        timeout={500}
+                        >
+                        <Items 
+                            title={todo.title} 
+                            checked={todo.checked} 
+                            clicked={() => props.onChecklist(todo.id)} 
+                            deleted={() => props.onDeletedTodo(todo.id)} />
+                    </CSSTransition>
                 )) : null
             }
-        </ul>
+        </TransitionGroup>
     )
 }
 

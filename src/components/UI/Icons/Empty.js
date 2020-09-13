@@ -10,7 +10,7 @@ const Empty = (props) => {
             height: '300px',
             flexDirection: 'column'
         }}>
-        <img src={Icon} width="150px" alt="empty image" />
+        <img src={Icon} width="150" alt={props.text} />
         <p>{props.text}</p>
         </div>
     );

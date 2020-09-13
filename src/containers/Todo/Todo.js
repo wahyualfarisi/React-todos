@@ -4,12 +4,11 @@ import { connect } from 'react-redux'
 import Controls from '../../components/Todo/Controls/Controls';
 import Lists from '../../components/Todo/Lists/Lists';
 import * as actions from './../../store/actions/index';
-import Spinner from '../../components/UI/Spinner/Spinner';
 import Empty from '../../components/UI/Icons/Empty';
 
 
 class Todo extends Component {
-
+    
     state = {
         value: ''
     }
@@ -63,16 +62,13 @@ class Todo extends Component {
         }
 
 
-        if(this.props.loading){
-            listTodo = <Spinner />
-        }
-
         return (
             <div className={classes.Todo}>
                 <Controls 
                     submited={this.onSaveTodoHandler} 
                     inputValue={this.state.value}
                     changed={this.onChangeHandler} />
+
                 <div style={{ background: '#ccc' }}>
                      {listTodo}
                 </div>
