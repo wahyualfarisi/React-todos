@@ -26,6 +26,10 @@ class AuthService {
                 })
     }
 
+    verify(){
+        return Axios.get('/verify', { headers: authHeader() } )
+    }
+
     getCurrentUser() {
         return JSON.parse( localStorage.getItem('user') )
     }

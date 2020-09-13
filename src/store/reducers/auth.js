@@ -38,7 +38,6 @@ const reducer = (state = initialState, action) => {
 
         case actionTypes.CHECK_AUTH:
                 const user = AuthService.getCurrentUser();
-
                 if(user){
                     return {
                         ...state,

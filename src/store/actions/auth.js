@@ -13,7 +13,8 @@ export const authStart = () => {
     }
 }
 
-export const authSuccess = (data, token) => {
+export const authSuccess = (data) => {
+    const token = JSON.parse(localStorage.getItem('user')).token 
     return {
         type: actionTypes.AUTH_SUCCESS,
         data: data,
@@ -34,15 +35,15 @@ export const logoutStart = () => {
     }
 }
 
-export const logoutSuccess = ( data ) => {
+export const logoutSuccess = ( ) => {
     localStorage.removeItem('user');
     return {
-        type: actionTypes.LOGOUT_SUCCESS,
-        data: data
+        type: actionTypes.LOGOUT_SUCCESS
     }
 }
 
 export const logoutFail = (err) => {
+    localStorage.removeItem('user');
     return {
         type: actionTypes.LOGOUT_FAIL,
         error: err
@@ -55,11 +56,27 @@ export const auth = (email, password) => {
         authService.login(email, password)
                    .then(res => {
                         localStorage.setItem('user', JSON.stringify(res.data));
-                        dispatch(authSuccess(res.data.results, res.data.token))
+                        dispatch(authSuccess(res.data.results))
                    })
                    .catch(err => {
                         dispatch(authFail(err))
                    })
+    }
+}
+
+export const authCheckStatus = () => {
+    return dispatch => {
+        dispatch( authCheckState() )
+        const user = localStorage.getItem('user');
+        if(user){
+            authService.verify()
+                       .then(res => {
+                           dispatch( authSuccess(res.data.results) )
+                       })
+                       .catch(err => {
+                           dispatch( logoutSuccess() )
+                       })
+        }
     }
 }
 
@@ -68,10 +85,11 @@ export const logout = () => {
         dispatch(logoutStart());
         authService.logout()
                 .then(res => {
-                    dispatch(logoutSuccess(res.data))
+                    dispatch(logoutSuccess())
                 })
                 .catch(err => {
                     dispatch(logoutFail(err))
                 })
     }
 }
+
