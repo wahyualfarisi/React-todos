@@ -1,0 +1,1 @@
+{"version":3,"sources":["Logout.module.css"],"names":[],"mappings":"AAKA,wBACI,sBACI,iBAAkB,CAClB,OAAQ,CACR,QAAS,CACT,+BAEJ,CACJ","file":"4.092fba3b.chunk.css","sourcesContent":[".Logout {\n\n}\n\n\n@media(min-width: 500px){\n    .Logout {\n        position: absolute;\n        top: 50%;\n        left: 45%;\n        transform: translateX(-50%, -50%);\n        \n    }\n}"]}
