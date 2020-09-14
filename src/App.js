@@ -27,11 +27,7 @@ const App = props => {
 
   
 
-  useEffect( () => {
-
-    check()
-
-  }, [])
+  useEffect(check, [])
 
   
   let routes = (
