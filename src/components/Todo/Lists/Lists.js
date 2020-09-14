@@ -13,7 +13,7 @@ const Lists = (props) => {
                     <CSSTransition 
                         key={todo.id}
                         classNames="fade"
-                        timeout={500}
+                        timeout={300}
                         >
                         <Items 
                             title={todo.title} 

@@ -102,6 +102,19 @@ const reducer = ( state = initialState, action ) => {
                 loading: false,
                 todos: copyTodos
             }
+        
+        case actionTypes.TODO_CHECKED_FAIL:
+            return {
+                ...state,
+                error: action.error
+            }
+        
+        case actionTypes.TODO_CLEAR_ERROR:
+            return {
+                ...state,
+                loading: false,
+                error: null
+            }
 
         default:
             return state;

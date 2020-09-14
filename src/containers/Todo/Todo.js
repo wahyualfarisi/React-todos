@@ -5,6 +5,7 @@ import Controls from '../../components/Todo/Controls/Controls';
 import Lists from '../../components/Todo/Lists/Lists';
 import * as actions from './../../store/actions/index';
 import Empty from '../../components/UI/Icons/Empty';
+import Modal from './../../components/UI/Modal/Modal';
 
 
 class Todo extends Component {
@@ -37,7 +38,6 @@ class Todo extends Component {
             })
         }
 
-
         return false;
     }
 
@@ -64,6 +64,16 @@ class Todo extends Component {
 
         return (
             <div className={classes.Todo}>
+                
+                {
+                    this.props.error ? 
+                        <Modal 
+                            show={this.props.error} 
+                            modalClosed={this.props.onTodoClearError} > 
+                                {this.props.error.message} 
+                        </Modal> : null
+                }
+
                 <Controls 
                     submited={this.onSaveTodoHandler} 
                     inputValue={this.state.value}
@@ -79,7 +89,8 @@ const mapStateToProps = state => {
     return {
         auth: state.auth,
         todos: state.todo.todos,
-        loading: state.todo.loading
+        loading: state.todo.loading,
+        error: state.todo.error
     }
 }
 
@@ -88,8 +99,9 @@ const mapDispatchToProps = dispatch => {
         onFetchTodo: () => dispatch( actions.todo_fetch( ) ) ,
         onDeleteTodo: ( id ) => dispatch( actions.todo_delete( id ) ),
         onCreateTodo: (title) => dispatch( actions.todo_add(title) ),
-        onCheckedToggle: (id) => dispatch( actions.todo_checked(id))
+        onCheckedToggle: (id) => dispatch( actions.todo_checked(id)),
+        onTodoClearError: () => dispatch( actions.todo_clear_error() ) 
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Todo) 
+export default connect(mapStateToProps, mapDispatchToProps)( Todo ) 

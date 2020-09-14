@@ -85,6 +85,13 @@ export const todo_checked_fail = ( error ) => {
     }
 }
 
+//error
+export const todo_clear_error = () => {
+    return {
+        type: actionTypes.TODO_CLEAR_ERROR
+    }
+}
+
 export const todo_fetch = () => {
     return dispatch => {
         dispatch( todo_fetch_start() );
