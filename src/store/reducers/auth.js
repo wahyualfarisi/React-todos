@@ -6,12 +6,19 @@ const initialState = {
     token: null,
     isLogin: false,
     loading: false,
-    error: null
+    error: null,
+    isPrepare: true
 };
 
 const reducer = (state = initialState, action) => {
     switch(action.type)
     {
+        case actionTypes.CHECK_AUTH_INITIAL:
+            return {
+                ...state,
+                isLogin: true
+            }
+
         case actionTypes.AUTH_START:
             return {
                 ...state,
@@ -25,7 +32,8 @@ const reducer = (state = initialState, action) => {
                 currentUser: action.data,
                 token: action.token,
                 isLogin: true,
-                error: null
+                error: null,
+                isPrepare: false
             }
 
         case actionTypes.AUTH_FAIL:
@@ -41,7 +49,6 @@ const reducer = (state = initialState, action) => {
                 if(user){
                     return {
                         ...state,
-                        isLogin: true,
                         loading: false
                     }
                 }
@@ -50,12 +57,13 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 isLogin: false,
                 loading: false
-            }
+        }
 
         case actionTypes.LOGOUT_START:
             return {
                 ...state,
-                loading: true
+                loading: true,
+                isPrepare: false
             }
 
         case actionTypes.LOGOUT_SUCCESS:
@@ -63,7 +71,8 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 isLogin: false,
                 currentUser: null,
-                loading: false
+                loading: false,
+                isPrepare: false
             }
            
         case actionTypes.LOGOUT_FAIL: 
@@ -72,9 +81,15 @@ const reducer = (state = initialState, action) => {
                 isLogin: false,
                 currentUser: null,
                 loading: false,
-                error: action.error
+                error: action.error,
+                isPrepare: false
             }
             
+        case actionTypes.AUTH_CLEAR_ERROR:
+            return {
+                ...state,
+                error: null
+            }
         default: 
         return state;
     }

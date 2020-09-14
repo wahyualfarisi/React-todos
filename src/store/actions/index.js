@@ -1,8 +1,15 @@
 export {
     auth,
     logout,
+    logoutSuccess,
+    logoutStart,
+    logoutFail,
     authCheckState,
-    authCheckStatus
+    authCheckStatus,
+    authStart,
+    authSuccess,
+    authFail,
+    authClearError
 } from './auth';
 
 export {

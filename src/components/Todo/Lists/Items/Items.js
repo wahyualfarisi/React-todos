@@ -2,14 +2,14 @@ import React from 'react';
 import classes from './Items.module.css';
 
 const Items = (props) => {
-    let itemClasses = null;
+    let itemClasses = [classes.Items];
 
     if(props.checked){
-        itemClasses = classes.Checked
+        itemClasses.push(classes.Checked)
     }
 
     return (
-        <li className={itemClasses}>
+        <li className={itemClasses.join(' ')}>
             <div onClick={props.clicked}>{props.title}</div> 
             <span onClick={props.deleted}>x</span> 
         </li>

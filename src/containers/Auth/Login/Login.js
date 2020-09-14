@@ -3,10 +3,10 @@ import classes from './Login.module.css';
 import Button from '../../../components/UI/Button/Button';
 import Input from '../../../components/UI/Input/Input';
 import Spinner from './../../../components/UI/Spinner/Spinner';
-import { withRouter } from 'react-router-dom'
-import ErrorMessage from '../../../components/UI/ErrorMessage/ErrorMessage';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from './../../../store/actions/index';
+import Modal from '../../../components/UI/Modal/Modal';
 
 class Login extends Component {
 
@@ -90,7 +90,7 @@ class Login extends Component {
 
 
     render() {
-        let formElementArr = [], errorMessage = null;
+        let formElementArr = [];
 
         for(let key in this.state.form_data){
             formElementArr.push({
@@ -121,24 +121,30 @@ class Login extends Component {
                            this.props.loading ? (
                                <div> <Spinner /> </div>
                            ) : (
-                            <Button disabled={!this.state.formIsValid} btnType="Primary" >SUBMIT</Button>
+                            <Button 
+                                disabled={!this.state.formIsValid} 
+                                btnType="Primary">
+                                SUBMIT
+                            </Button>
                            )
                         } 
                     </div>
             </form>
         );
 
-        if(this.props.error){
-            errorMessage = (
-                <ErrorMessage messageType="Error"> {this.props.error.message} </ErrorMessage>
-            )
-        }
+      
 
         return (
             <div className={classes.Login}>
                 <h2>Log in</h2>
                 {form}
-                {errorMessage}
+                {this.props.error && ( 
+                    <Modal 
+                        show={this.props.error} 
+                        modalClosed={this.props.onAuthClearError}>
+                        {this.props.error.message}
+                    </Modal>
+                )}
             </div>
         )
     }
@@ -153,7 +159,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAuthentication: (email, password) => dispatch( actions.auth(email, password) )
+        onAuthentication: (email, password) => dispatch( actions.auth(email, password) ),
+        onAuthClearError: () => dispatch( actions.authClearError() )
     }
 }
 

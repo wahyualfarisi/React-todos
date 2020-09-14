@@ -7,20 +7,25 @@ import { HashRouter } from 'react-router-dom';
 import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
+import createSagaMiddleware from 'redux-saga';
+import rootSaga from './store/sagas';
 import authReducer from './store/reducers/auth';
 import todoReducer from './store/reducers/todo';
-
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 
 const rootReducer = combineReducers({
   auth: authReducer,
   todo: todoReducer
-})
+});
+
+const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore( rootReducer, composeEnhancers(
-  applyMiddleware(thunk)
+  applyMiddleware(thunk, sagaMiddleware)
 ) )
+
+sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
     <Provider store={store}>

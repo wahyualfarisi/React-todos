@@ -1,3 +1,11 @@
+.Items {
+    border-radius: 5px;
+}
+
+.Items:not(:last-child) {
+    margin-bottom: 5px;
+}
+
 .Checked {
     text-decoration: line-through;
 }
@@ -8,6 +16,7 @@
     border-color: #ccc;
     border-style: solid;
     border-width: 0 2px 2px 0;
+    font-weight: bold;
     top: 10px;
     left: 16px;
     transform: rotate(45deg);

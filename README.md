@@ -9,6 +9,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Main Page
 ![alt text](https://github.com/wahyualfarisi/React-todos/blob/master/sc/main_page.png?raw=true)
 
+
+## Main Page
+![alt text](https://github.com/wahyualfarisi/React-todos/blob/master/sc/todo.png?raw=true)
+
 ## Available Scripts
 In the project directory, you can run:
 

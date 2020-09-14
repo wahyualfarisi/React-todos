@@ -1,5 +1,4 @@
 import * as actionTypes from './types';
-import authService from './../../services/auth_service';
 
 export const authCheckState = () => {
     return {
@@ -51,45 +50,28 @@ export const logoutFail = (err) => {
 }
 
 export const auth = (email, password) => {
-    return dispatch => {
-        dispatch(authStart());
-        authService.login(email, password)
-                   .then(res => {
-                        localStorage.setItem('user', JSON.stringify(res.data));
-                        dispatch(authSuccess(res.data.results))
-                   })
-                   .catch(err => {
-                        dispatch(authFail(err))
-                   })
+    return {
+        type: actionTypes.AUTH_INITIAL,
+        email: email,
+        password: password
     }
 }
 
 export const authCheckStatus = () => {
-    return dispatch => {
-        dispatch( authCheckState() )
-        const user = localStorage.getItem('user');
-        if(user){
-            authService.verify()
-                       .then(res => {
-                           dispatch( authSuccess(res.data.results) )
-                       })
-                       .catch(err => {
-                           dispatch( logoutSuccess() )
-                       })
-        }
+    return {
+        type: actionTypes.CHECK_AUTH_INITIAL
     }
 }
 
 export const logout = () => {
-    return dispatch => {
-        dispatch(logoutStart());
-        authService.logout()
-                .then(res => {
-                    dispatch(logoutSuccess())
-                })
-                .catch(err => {
-                    dispatch(logoutFail(err))
-                })
+    return {
+        type: actionTypes.LOGOUT_INITIAL
+    }
+}
+
+export const authClearError = () => {
+    return {
+        type: actionTypes.AUTH_CLEAR_ERROR
     }
 }
 

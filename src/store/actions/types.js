@@ -1,9 +1,13 @@
+export const CHECK_AUTH_INITIAL = 'CHECK_AUTH_INITIAL';
 export const CHECK_AUTH = 'CHECK_AUTH';
 
+export const AUTH_INITIAL = 'AUTH_INITIAL';
 export const AUTH_START = 'AUTH_START';
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';
 export const AUTH_FAIL = 'AUTH_FAIL';
+export const AUTH_CLEAR_ERROR = 'AUTH_CLEAR_ERROR'
 
+export const LOGOUT_INITIAL = 'LOGOUT_INITIAL';
 export const LOGOUT_START = 'LOGOUT_START';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const LOGOUT_FAIL = 'LOGOUT_FAIL';
